@@ -6,5 +6,5 @@ data class BreedResponse(
     @SerializedName("message")
     val breeds: Map<String, List<String>>,
     @SerializedName("status")
-    val status: String
+    val status: String?
 )
