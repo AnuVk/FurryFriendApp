@@ -1,0 +1,56 @@
+package com.anuvk.mvvmhiltcompose.presentation.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.anuvk.furryfriendapp.domain.entity.result.Result
+import com.anuvk.furryfriendapp.domain.error.DataError
+import com.anuvk.mvvmhiltcompose.domain.model.BreedsDomain
+import com.anuvk.mvvmhiltcompose.domain.usecase.GetAllDogBreedsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+
+@HiltViewModel
+class DogBreedViewModel @Inject constructor(
+    private val getAllDogBreedsUseCase: GetAllDogBreedsUseCase
+) : ViewModel() {
+
+    private val _state = MutableStateFlow(DogBreedState())
+    val state: StateFlow<DogBreedState> = _state
+
+    data class DogBreedState(
+        val list: List<BreedsDomain> = emptyList(),
+        val isLoading: Boolean = false,
+        val error: String? = null
+    )
+
+    fun loadAllDogBreeds() {
+        viewModelScope.launch {
+            _state.update { it.copy(isLoading = true) }
+            getAllDogBreedsUseCase().collect { result ->
+                when (result) {
+                    is Result.Success -> {
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                list = result.data) }
+                    }
+
+                    is Result.Error -> {
+                        val errorMessage = when(result.error) {
+                            is DataError.Network.ServerError -> "Please try again later"
+                            is DataError.Network.EmptyResponse -> "Something went wrong"
+                        }
+                        _state.update {
+                            it.copy(isLoading = false, error = errorMessage)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
