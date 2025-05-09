@@ -1,7 +1,6 @@
-package com.anuvk.mvvmhiltcompose.data.remote
+package com.anuvk.furryfriendapp.data.remote
 
-import com.anuvk.mvvmhiltcompose.domain.model.BreedsDomain
-
+import com.anuvk.furryfriendapp.domain.model.BreedsDomain
 
 fun BreedResponse.toDomain(): List<BreedsDomain> {
     return breeds.keys.map { breedName -> BreedsDomain(breedName = breedName) }

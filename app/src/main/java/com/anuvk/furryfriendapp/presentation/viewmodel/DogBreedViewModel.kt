@@ -1,11 +1,11 @@
-package com.anuvk.mvvmhiltcompose.presentation.viewmodel
+package com.anuvk.furryfriendapp.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anuvk.furryfriendapp.domain.entity.result.Result
 import com.anuvk.furryfriendapp.domain.error.DataError
-import com.anuvk.mvvmhiltcompose.domain.model.BreedsDomain
-import com.anuvk.mvvmhiltcompose.domain.usecase.GetAllDogBreedsUseCase
+import com.anuvk.furryfriendapp.domain.model.BreedsDomain
+import com.anuvk.furryfriendapp.domain.usecase.GetAllDogBreedsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

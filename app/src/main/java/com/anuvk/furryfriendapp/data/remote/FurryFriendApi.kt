@@ -1,4 +1,4 @@
-package com.anuvk.mvvmhiltcompose.data.remote
+package com.anuvk.furryfriendapp.data.remote
 
 import retrofit2.http.GET
 

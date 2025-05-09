@@ -1,8 +1,8 @@
-package com.anuvk.mvvmhiltcompose.presentation.di
+package com.anuvk.furryfriendapp.presentation
 
-import com.anuvk.mvvmhiltcompose.data.remote.FurryFriendApi
-import com.anuvk.mvvmhiltcompose.data.repository.DogBreedRepositoryImpl
-import com.anuvk.mvvmhiltcompose.domain.repository.DogBreedRepository
+import com.anuvk.furryfriendapp.data.remote.FurryFriendApi
+import com.anuvk.furryfriendapp.data.repository.DogBreedRepositoryImpl
+import com.anuvk.furryfriendapp.domain.repository.DogBreedRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

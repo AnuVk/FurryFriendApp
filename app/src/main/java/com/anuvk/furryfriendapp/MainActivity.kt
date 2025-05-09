@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.anuvk.furryfriendapp.presentation.viewmodel.DogBreedViewModel
 import com.anuvk.furryfriendapp.ui.theme.FurryFriendAppTheme
-import com.anuvk.mvvmhiltcompose.presentation.viewmodel.DogBreedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

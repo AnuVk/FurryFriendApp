@@ -1,9 +1,6 @@
-package com.anuvk.mvvmhiltcompose.domain.repository
+package com.anuvk.furryfriendapp.domain.repository
 
-import com.anuvk.furryfriendapp.domain.entity.result.Result
-import com.anuvk.furryfriendapp.domain.error.DataError
-import com.anuvk.mvvmhiltcompose.domain.model.BreedsDomain
-import com.anuvk.mvvmhiltcompose.domain.usecase.DogBreedsResult
+import com.anuvk.furryfriendapp.domain.usecase.DogBreedsResult
 import kotlinx.coroutines.flow.Flow
 
 interface DogBreedRepository {

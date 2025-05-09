@@ -1,4 +1,4 @@
-package com.anuvk.mvvmhiltcompose.data.remote
+package com.anuvk.furryfriendapp.data.remote
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package com.anuvk.mvvmhiltcompose.domain.model
+package com.anuvk.furryfriendapp.domain.model
 
 data class BreedsDomain(
     val breedName: String

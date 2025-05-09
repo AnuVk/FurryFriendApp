@@ -1,9 +1,9 @@
-package com.anuvk.mvvmhiltcompose.domain.usecase
+package com.anuvk.furryfriendapp.domain.usecase
 
 import com.anuvk.furryfriendapp.domain.entity.result.Result
 import com.anuvk.furryfriendapp.domain.error.DataError
-import com.anuvk.mvvmhiltcompose.domain.model.BreedsDomain
-import com.anuvk.mvvmhiltcompose.domain.repository.DogBreedRepository
+import com.anuvk.furryfriendapp.domain.model.BreedsDomain
+import com.anuvk.furryfriendapp.domain.repository.DogBreedRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
