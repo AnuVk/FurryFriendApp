@@ -17,6 +17,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.anuvk.furryfriendapp.presentation.viewmodel.DogBreedViewModel
+import com.anuvk.furryfriendapp.ui.theme.DogBreedsListScreen
 import com.anuvk.furryfriendapp.ui.theme.FurryFriendAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -40,12 +41,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FurryFriendAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                DogBreedsListScreen(dogBreedViewModel)
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    Greeting(
+//                        name = "Android",
+//                        modifier = Modifier.padding(innerPadding)
+//                    )
+//                }
             }
         }
     }

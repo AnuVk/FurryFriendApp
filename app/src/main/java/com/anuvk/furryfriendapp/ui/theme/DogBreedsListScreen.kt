@@ -1,5 +1,6 @@
 package com.anuvk.furryfriendapp.ui.theme
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,21 +14,46 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.anuvk.furryfriendapp.domain.model.BreedsDomain
+import com.anuvk.furryfriendapp.presentation.viewmodel.DogBreedViewModel
 
 @Composable
-fun DogBreedsListScreen(listOfDogBreeds: List<BreedsDomain>) {
+fun DogBreedsListScreen(viewModel: DogBreedViewModel = hiltViewModel()) {
 
-    LazyColumn {
-        items(listOfDogBreeds) { item ->
-            DogBreedItem(item)
+    val dogBreedsState by viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.loadAllDogBreeds()
+    }
+
+    LaunchedEffect(dogBreedsState) {
+        Log.d(">>>", "state changed $dogBreedsState")
+    }
+
+    when {
+        dogBreedsState.isLoading -> {
+            Text(text = "Loading...")
         }
+        dogBreedsState.error != null -> {
+            Text(text = "Error: ${dogBreedsState.error}")
+        } else -> {
+        LazyColumn {
+            items(dogBreedsState.list) { item ->
+                DogBreedItem(item)
+            }
+        }
+
+    }
 
     }
 
@@ -66,15 +92,15 @@ fun DogBreedItem(breedsDomain: BreedsDomain) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DogBreedsListScreenPreview() {
-    FurryFriendAppTheme {
-        DogBreedsListScreen(listOf(
-            BreedsDomain("buhund", "https://images.dog.ceo/breeds/affenpinscher/n02110627_7013.jpg"),
-            BreedsDomain("bullterrier", "https://images.dog.ceo/breeds/affenpinscher/n02110627_7013.jpg"),
-            BreedsDomain("collie", "https://images.dog.ceo/breeds/affenpinscher/n02110627_7013.jpg"),
-            )
-        )
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DogBreedsListScreenPreview() {
+//    FurryFriendAppTheme {
+//        DogBreedsListScreen(listOf(
+//            BreedsDomain("buhund", "https://images.dog.ceo/breeds/affenpinscher/n02110627_7013.jpg"),
+//            BreedsDomain("bullterrier", "https://images.dog.ceo/breeds/affenpinscher/n02110627_7013.jpg"),
+//            BreedsDomain("collie", "https://images.dog.ceo/breeds/affenpinscher/n02110627_7013.jpg"),
+//            )
+//        )
+//    }
+//}
