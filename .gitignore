@@ -13,3 +13,40 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# built application files
+*.apk
+*.ap_
+
+# Java class files
+*.class
+
+# files for the dex VM
+*.dex
+
+build/
+bin/
+gen/
+lint.xml
+application/build
+reports/
+
+
+# Windows thumbnail db
+Thumbs.db
+
+# OSX files
+
+# Eclipse project files
+.classpath
+.project
+
+# Android Studio
+.idea
+/reports
+
+
+# test
+app/src/test/resources/cache
+src/test/resources/cache
+
