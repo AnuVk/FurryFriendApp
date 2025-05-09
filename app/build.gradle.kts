@@ -93,4 +93,5 @@ dependencies {
     implementation(libs.coroutines.android)
     implementation(libs.navigation.compose)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.coil.compose)
 }
