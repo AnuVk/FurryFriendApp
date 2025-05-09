@@ -1,8 +1,8 @@
 package com.anuvk.mvvmhiltcompose.presentation.di
 
 import com.anuvk.mvvmhiltcompose.data.remote.FurryFriendApi
-import com.anuvk.mvvmhiltcompose.data.repository.BreedRepositoryImpl
-import com.anuvk.mvvmhiltcompose.domain.repository.BreedRepository
+import com.anuvk.mvvmhiltcompose.data.repository.DogBreedRepositoryImpl
+import com.anuvk.mvvmhiltcompose.domain.repository.DogBreedRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,7 +31,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePlaceholderApi(okHttpClient: OkHttpClient): FurryFriendApi {
+    fun provideFurryFriendApi(okHttpClient: OkHttpClient): FurryFriendApi {
         return Retrofit.Builder()
             .baseUrl(FurryFriendApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -42,7 +42,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePostRepository(api: FurryFriendApi): BreedRepository {
-        return BreedRepositoryImpl(api)
+    fun provideDogBreedRepository(api: FurryFriendApi): DogBreedRepository {
+        return DogBreedRepositoryImpl(api)
     }
 }
