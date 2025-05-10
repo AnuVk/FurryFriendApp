@@ -6,9 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,8 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.anuvk.furryfriendapp.presentation.viewmodel.DogBreedViewModel
-import com.anuvk.furryfriendapp.ui.theme.DogBreedsListScreen
-import com.anuvk.furryfriendapp.ui.theme.DogBreedsScreen
+import com.anuvk.furryfriendapp.ui.screens.DogBreedsScreen
 import com.anuvk.furryfriendapp.ui.theme.FurryFriendAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

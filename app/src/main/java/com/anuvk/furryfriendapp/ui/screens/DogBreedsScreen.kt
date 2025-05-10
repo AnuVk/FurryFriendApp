@@ -1,4 +1,4 @@
-package com.anuvk.furryfriendapp.ui.theme
+package com.anuvk.furryfriendapp.ui.screens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
