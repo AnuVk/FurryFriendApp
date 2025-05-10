@@ -6,6 +6,7 @@ import com.anuvk.furryfriendapp.domain.entity.result.Result
 import com.anuvk.furryfriendapp.domain.error.DataError
 import com.anuvk.furryfriendapp.domain.model.BreedsDomain
 import com.anuvk.furryfriendapp.domain.usecase.GetAllDogBreedsUseCase
+import com.anuvk.furryfriendapp.presentation.state.DogBreedState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,11 +23,6 @@ class DogBreedViewModel @Inject constructor(
     private val _state = MutableStateFlow(DogBreedState())
     val state: StateFlow<DogBreedState> = _state
 
-    data class DogBreedState(
-        val list: List<BreedsDomain> = emptyList(),
-        val isLoading: Boolean = false,
-        val error: String? = null
-    )
 
     fun loadAllDogBreeds() {
         viewModelScope.launch {
@@ -37,7 +33,7 @@ class DogBreedViewModel @Inject constructor(
                         _state.update {
                             it.copy(
                                 isLoading = false,
-                                list = result.data) }
+                                breedsDomainList = result.data) }
                     }
 
                     is Result.Error -> {
