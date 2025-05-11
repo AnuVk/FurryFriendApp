@@ -1,5 +1,6 @@
 package com.anuvk.furryfriendapp.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,7 +26,8 @@ import com.anuvk.furryfriendapp.presentation.state.DogBreedState
 
 @Composable
 fun DogBreedsScreenContent(
-    state: DogBreedState
+    state: DogBreedState,
+    onBreedClick: (String) -> Unit = {}
 ) {
     Column(modifier = Modifier.padding(16.dp)) {
         when {
@@ -38,7 +40,9 @@ fun DogBreedsScreenContent(
             state.breedsDomainList.isNotEmpty() -> {
                 LazyColumn {
                     items(state.breedsDomainList) { breed ->
-                        DogBreedItem(breedsDomain = breed)
+                        DogBreedItem(
+                            breedsDomain = breed,
+                            onItemClick = { onBreedClick(breed.breedName)})
                     }
                 }
             }
@@ -51,10 +55,13 @@ fun DogBreedsScreenContent(
 }
 
 @Composable
-fun DogBreedItem(breedsDomain: BreedsDomain) {
+fun DogBreedItem(
+    breedsDomain: BreedsDomain,
+    onItemClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable(onClick = onItemClick)
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Row (
@@ -88,7 +95,8 @@ fun DogBreedItem(breedsDomain: BreedsDomain) {
 @Composable
 fun DogBreedsScreenContentPreview_Loading() {
     DogBreedsScreenContent(
-        state = DogBreedState(isLoading = true))
+        state = DogBreedState(isLoading = true),
+        onBreedClick = {})
 }
 
 @Preview(showBackground = true)
@@ -101,7 +109,8 @@ fun DogBreedsScreenContentPreview_Success() {
     )
     DogBreedsScreenContent(
         state = DogBreedState(isLoading = false,
-        breedsDomainList = sampleBreeds))
+        breedsDomainList = sampleBreeds),
+        onBreedClick = {})
 }
 
 @Preview(showBackground = true)
@@ -109,6 +118,7 @@ fun DogBreedsScreenContentPreview_Success() {
 fun DogBreedsScreenContentPreview_Error() {
     DogBreedsScreenContent(
         state = DogBreedState(isLoading = false,
-            error = "Server Error")
+            error = "Server Error"),
+        onBreedClick = {}
     )
 }

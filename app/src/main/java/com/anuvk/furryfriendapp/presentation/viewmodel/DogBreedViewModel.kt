@@ -49,4 +49,30 @@ class DogBreedViewModel @Inject constructor(
             }
         }
     }
+
+    fun loadAllDogBreeds2() {
+        viewModelScope.launch {
+            _state.update { it.copy(isLoading = true) }
+            getAllDogBreedsUseCase().collect { result ->
+                when (result) {
+                    is Result.Success -> {
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                breedsDomainList = result.data) }
+                    }
+
+                    is Result.Error -> {
+                        val errorMessage = when(result.error) {
+                            is DataError.Network.ServerError -> "Please try again later"
+                            is DataError.Network.EmptyResponse -> "Something went wrong"
+                        }
+                        _state.update {
+                            it.copy(isLoading = false, error = errorMessage)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

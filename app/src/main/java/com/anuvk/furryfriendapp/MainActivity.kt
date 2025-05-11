@@ -13,8 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.compose.rememberNavController
+import com.anuvk.furryfriendapp.presentation.AppNavigation
 import com.anuvk.furryfriendapp.presentation.viewmodel.DogBreedViewModel
-import com.anuvk.furryfriendapp.ui.screens.DogBreedsScreen
 import com.anuvk.furryfriendapp.ui.theme.FurryFriendAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -38,7 +39,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FurryFriendAppTheme {
-                DogBreedsScreen(dogBreedViewModel)
+//                DogBreedsScreen(dogBreedViewModel)
+                val navController = rememberNavController()
+
+                AppNavigation(navController = navController)
+
 //                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(
 //                        name = "Android",
