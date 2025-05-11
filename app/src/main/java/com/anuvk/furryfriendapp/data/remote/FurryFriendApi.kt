@@ -1,12 +1,18 @@
 package com.anuvk.furryfriendapp.data.remote
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface FurryFriendApi {
-    @GET("/api/breeds/list/all")
-    suspend fun getAllBreeds(): BreedResponse
 
     companion object {
         const val BASE_URL = "https://dog.ceo"
     }
+
+    @GET("/api/breeds/list")
+    suspend fun getAllBreeds(): BreedResponse
+
+    @GET("/api/breed/{breedName}/images")
+    suspend fun getBreedImages(@Path("breedName") breedName: String): BreedImageResponse
+
 }

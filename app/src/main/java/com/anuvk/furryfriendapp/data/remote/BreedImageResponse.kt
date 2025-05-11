@@ -2,9 +2,9 @@ package com.anuvk.furryfriendapp.data.remote
 
 import com.google.gson.annotations.SerializedName
 
-data class BreedResponse(
+data class BreedImageResponse(
     @SerializedName("message")
-    val breeds: List<String>?,
+    val message: List<String>?,
     @SerializedName("status")
     val status: String?
 )
