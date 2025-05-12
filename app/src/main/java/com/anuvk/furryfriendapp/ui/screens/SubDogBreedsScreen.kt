@@ -1,5 +1,6 @@
 package com.anuvk.furryfriendapp.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,36 +34,10 @@ fun  SubDogBreedsScreen(
         println(">>> breedname $breedName")
     }
 
-    DogBreedsScreenContent(
+    DogBreedImagesScreenContent(
         state = state
     )
 
 }
 
-@Composable
-fun DogBreedItem(
-    dogBreedImagesDomain: DogBreedImagesDomain,
-    onItemClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        Row (
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            AsyncImage(
-                model = dogBreedImagesDomain.listOfDogBreedImages.first(),
-                contentDescription = "breedsDomain.breedNam",
-                modifier = Modifier.size(60.dp),
-                contentScale = ContentScale.Crop
-            )
 
-            Spacer(modifier = Modifier.width(16.dp))
-
-        }
-    }
-}

@@ -1,32 +1,32 @@
 package com.anuvk.furryfriendapp.ui.screens
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.anuvk.furryfriendapp.domain.model.BreedsDomain
 import com.anuvk.furryfriendapp.presentation.state.DogBreedState
-import com.anuvk.furryfriendapp.ui.screens.DogBreedsImageLazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
+import coil.compose.AsyncImage
 
 @Composable
 fun DogBreedImagesScreenContent(
     state: DogBreedState,
-    onBreedClick: (String) -> Unit = {}
 ) {
     Column(modifier = Modifier.padding(16.dp)) {
         when {
@@ -43,8 +43,7 @@ fun DogBreedImagesScreenContent(
             }
             state.randomDogBreedImages.isNotEmpty() -> {
                         DogBreedsImageLazyColumn(
-                            listOfCategorizedBreeds = state.breedsDomainList,
-                            onItemClick = onBreedClick
+                            listOfImages = state.randomDogBreedImages
                         )
                 }
             // Optional: Handle empty state
@@ -55,122 +54,72 @@ fun DogBreedImagesScreenContent(
     }
 }
 
-//@Composable
-//fun DogBreedItem(
-//    breedsDomain: BreedsDomain,
-//    onItemClick: () -> Unit) {
-//    Card(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .clickable(onClick = onItemClick)
-//            .padding(horizontal = 16.dp, vertical = 8.dp)
-//    ) {
-//        Row (
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(16.dp),
-//            verticalAlignment = Alignment.CenterVertically
-//        ) {
-//            AsyncImage(
-//                model = breedsDomain.imageUrl,
-//                contentDescription = breedsDomain.breedName,
-//                modifier = Modifier.size(60.dp),
-//                contentScale = ContentScale.Crop
-//            )
-//
-//            Spacer(modifier = Modifier.width(16.dp))
-//
-//            Column {
-//                Text(
-//                    text = breedsDomain.breedName,
-//                    style = MaterialTheme.typography.bodySmall
-//                )
-//
-//            }
-//        }
-//    }
-//}
 
-@Composable
-private fun DogCategoryHeader(
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
-        modifier = modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primaryContainer)
-            .padding(16.dp)
-    )
-}
 
-@Composable
-private fun DogCategoryItem(
-    text: String,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
-) {
-    Text(
-        text = text,
-        fontSize = 14.sp,
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp)
-    )
-}
 
 @Composable
 private fun DogBreedsImageLazyColumn(
-    listOfCategorizedBreeds: List<String>,
-    modifier: Modifier = Modifier,
-    onItemClick: (String) -> Unit = {}
+    listOfImages: List<String>,
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(
         modifier = modifier
     ) {
-        listOfCategorizedBreeds.forEach { category ->
-            stickyHeader {
-                DogCategoryHeader(category.groupName)
+            items(items = listOfImages) { text ->
+                DogImageItem(text)
             }
-            items(category.listOfBreeds) { text ->
-                DogCategoryItem(text, onClick = { onItemClick(text) })
-            }
+
+    }
+}
+
+@Composable
+fun DogImageItem(
+    image: String) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AsyncImage(
+                model = image,
+                contentDescription = "breedsDomain.breedName",
+                modifier = Modifier.size(110.dp),
+                contentScale = ContentScale.Crop
+            )
+
+            Spacer(modifier = Modifier.width(16.dp))
         }
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun DogBreedsScreenContentPreview_Loading() {
-//    DogBreedsScreenContent(
-//        state = DogBreedState(isLoading = true),
-//        onBreedClick = {})
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun DogBreedsScreenContentPreview_Success() {
-//    val sampleBreeds = listOf(
-//        BreedsDomain("A", listOfBreeds = listOf("aaa", "ajhdjkdh")),
-//        BreedsDomain("B", listOfBreeds = listOf("bbb", "ajhdjkdh")))
-//
-//    DogBreedsScreenContent(
-//        state = DogBreedState(isLoading = false,
-//        breedsDomainList = sampleBreeds),
-//        onBreedClick = {})
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun DogBreedsScreenContentPreview_Error() {
-//    DogBreedsScreenContent(
-//        state = DogBreedState(isLoading = false,
-//            error = "Server Error"),
-//        onBreedClick = {}
-//    )
-//}
+@Preview(showBackground = true)
+@Composable
+fun DogBreedImagesScreenContentPreview_Loading() {
+    DogBreedImagesScreenContent(
+        state = DogBreedState(isLoading = true))
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DogBreedImagesScreenContentPreview_Success() {
+    val listOfImages = listOf("https://images.dog.ceo/breeds/elkhound-norwegian/n02091467_1406.jpg",
+        "https://images.dog.ceo/breeds/elkhound-norwegian/n02091467_141.jpg")
+    DogBreedImagesScreenContent(
+        state = DogBreedState(isLoading = false,
+        randomDogBreedImages = listOfImages))
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DogBreedImagesScreenContentPreview_Error() {
+    DogBreedImagesScreenContent(
+        state = DogBreedState(isLoading = false,
+            error = "Server Error")
+    )
+}

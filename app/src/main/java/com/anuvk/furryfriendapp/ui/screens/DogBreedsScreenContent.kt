@@ -41,7 +41,7 @@ fun DogBreedsScreenContent(
                 Text("Sorry Your furry friend is napping") // Show error message
             }
             state.breedsDomainList.isNotEmpty() -> {
-                        DogBreedsImageLazyColumn(
+                        DogBreedCategorizedLazyColumn(
                             listOfCategorizedBreeds = state.breedsDomainList,
                             onItemClick = onBreedClick
                         )
@@ -53,42 +53,6 @@ fun DogBreedsScreenContent(
         }
     }
 }
-
-//@Composable
-//fun DogBreedItem(
-//    breedsDomain: BreedsDomain,
-//    onItemClick: () -> Unit) {
-//    Card(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .clickable(onClick = onItemClick)
-//            .padding(horizontal = 16.dp, vertical = 8.dp)
-//    ) {
-//        Row (
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(16.dp),
-//            verticalAlignment = Alignment.CenterVertically
-//        ) {
-//            AsyncImage(
-//                model = breedsDomain.imageUrl,
-//                contentDescription = breedsDomain.breedName,
-//                modifier = Modifier.size(60.dp),
-//                contentScale = ContentScale.Crop
-//            )
-//
-//            Spacer(modifier = Modifier.width(16.dp))
-//
-//            Column {
-//                Text(
-//                    text = breedsDomain.breedName,
-//                    style = MaterialTheme.typography.bodySmall
-//                )
-//
-//            }
-//        }
-//    }
-//}
 
 @Composable
 private fun DogCategoryHeader(
@@ -124,7 +88,7 @@ private fun DogCategoryItem(
 }
 
 @Composable
-private fun DogBreedsImageLazyColumn(
+private fun DogBreedCategorizedLazyColumn(
     listOfCategorizedBreeds: List<BreedsDomain>,
     modifier: Modifier = Modifier,
     onItemClick: (String) -> Unit = {}
