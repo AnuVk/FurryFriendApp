@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.anuvk.furryfriendapp.ui.screens.AllDogBreedsScreen
-import com.anuvk.furryfriendapp.ui.screens.SubDogBreedsScreen
+import com.anuvk.furryfriendapp.ui.screens.DogBreedsImageScreen
 
 object AppDestinations {
     const val BREED_LIST_ROUTE = "breedList"
@@ -38,7 +38,7 @@ fun AppNavigation(
             arguments = listOf(navArgument("breedName") { type = NavType.StringType })
         ) { backStackEntry ->
             val breedName = backStackEntry.arguments?.getString("breedName")
-            SubDogBreedsScreen(breedName ?: "")
+            DogBreedsImageScreen(breedName ?: "")
             // Navigate to your detail screen, passing the breedName
             // BreedDetailScreen(breedName = breedName) // Assuming you have a BreedDetailScreen
         }
