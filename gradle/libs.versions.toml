@@ -1,21 +1,22 @@
 [versions]
 agp = "8.9.0"
 kotlin = "1.9.25"
-coreKtx = "1.15.0"
+coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.7"
+lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
 composeBom = "2025.05.00"
-hilt = "2.47" # Replace with the latest version
-lifecycleRuntimeCompose = "2.6.1"
-lifecycleViewmodelCompose = "2.6.1"
+hilt = "2.51.1"
+lifecycleRuntimeCompose = "2.9.0"
+lifecycleViewmodelCompose = "2.9.0"
 retrofit = "2.9.0"
 okhttp-logging-interceptor = "4.11.0"
 coroutines = "1.7.3"
-navigationCompose = "2.7.1"
-hiltNavigationCompose = "1.1.0"
+navigationCompose = "2.9.0"
+hiltNavigationCompose = "1.2.0"
+junitJupiter = "5.8.2"
 
 [libraries]
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -45,6 +46,13 @@ coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutin
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version = "2.4.0" }
 accompanist-systemui= { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version = "0.31.3-beta" }
+
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
+junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junitJupiter" }
+jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
+mockk = { group = "io.mockk", name = "mockk", version = "1.13.5" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version = "1.7.3" }
+turbine = { group = "app.cash.turbine", name = "turbine", version = "1.0.0" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
