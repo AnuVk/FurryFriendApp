@@ -1,6 +1,6 @@
 package com.anuvk.furryfriendapp.domain.model
 
 data class BreedsDomain(
-    val breedName: String,
-    val imageUrl: String? = ""
+    val groupName: String,
+    val listOfBreeds: List<String>
 )

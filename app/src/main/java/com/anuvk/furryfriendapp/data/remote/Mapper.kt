@@ -1,8 +1,13 @@
-//package com.anuvk.furryfriendapp.data.remote
-//
-//import com.anuvk.furryfriendapp.domain.model.BreedsDomain
-//
-//fun BreedResponse.toDomain(): List<BreedsDomain> {
-//    return breeds.keys.map { breedName -> BreedsDomain(breedName = breedName) }
-//
-//}
+package com.anuvk.furryfriendapp.data.remote
+
+import com.anuvk.furryfriendapp.domain.model.BreedsDomain
+
+fun BreedResponse.toDomain(): List<BreedsDomain> {
+    return breeds!!.let {allbreeds ->
+         allbreeds.groupBy { it.first().uppercase() }.toSortedMap().map {
+             BreedsDomain(
+                 groupName = it.key.toString(),
+                 listOfBreeds = it.value.toList())
+         }
+    }
+}

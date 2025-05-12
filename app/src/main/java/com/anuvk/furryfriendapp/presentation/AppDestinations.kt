@@ -1,6 +1,7 @@
 package com.anuvk.furryfriendapp.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,7 +21,7 @@ object AppDestinations {
 
 @Composable
 fun AppNavigation(
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     NavHost(navController = navController, startDestination = AppDestinations.BREED_LIST_ROUTE) {
         composable(AppDestinations.BREED_LIST_ROUTE) {
