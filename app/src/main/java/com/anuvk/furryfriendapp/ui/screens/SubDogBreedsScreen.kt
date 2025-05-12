@@ -5,8 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
-import com.anuvk.furryfriendapp.presentation.AppDestinations
 import com.anuvk.furryfriendapp.presentation.viewmodel.DogBreedViewModel
 
 @Composable
@@ -17,7 +15,7 @@ fun  SubDogBreedsScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.loadAllDogBreeds2()
+        viewModel.getRandomImageByBreed("elkhound", 10)
         println(">>> breedname $breedName")
     }
 

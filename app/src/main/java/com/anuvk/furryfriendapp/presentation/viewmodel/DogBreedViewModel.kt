@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anuvk.furryfriendapp.domain.entity.result.Result
 import com.anuvk.furryfriendapp.domain.error.DataError
-import com.anuvk.furryfriendapp.domain.model.BreedsDomain
+import com.anuvk.furryfriendapp.domain.usecase.DogBreedRandomImagesUseCase
 import com.anuvk.furryfriendapp.domain.usecase.GetAllDogBreedsUseCase
 import com.anuvk.furryfriendapp.presentation.state.DogBreedState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DogBreedViewModel @Inject constructor(
-    private val getAllDogBreedsUseCase: GetAllDogBreedsUseCase
+    private val getAllDogBreedsUseCase: GetAllDogBreedsUseCase,
+    private val getDogBreedRandomImagesUseCase: DogBreedRandomImagesUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(DogBreedState())
@@ -50,16 +51,16 @@ class DogBreedViewModel @Inject constructor(
         }
     }
 
-    fun loadAllDogBreeds2() {
+    fun getRandomImageByBreed(breedName: String, numberOfImages: Int) {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
-            getAllDogBreedsUseCase().collect { result ->
+            getDogBreedRandomImagesUseCase(breedName, numberOfImages).collect { result ->
                 when (result) {
                     is Result.Success -> {
                         _state.update {
                             it.copy(
                                 isLoading = false,
-                                breedsDomainList = result.data) }
+                                randomDogBreedImages = result.data.listOfDogBreedImages) }
                     }
 
                     is Result.Error -> {

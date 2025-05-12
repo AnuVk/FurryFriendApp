@@ -6,7 +6,9 @@ import com.anuvk.furryfriendapp.domain.entity.result.Result
 import com.anuvk.furryfriendapp.domain.error.DataError
 import com.anuvk.furryfriendapp.domain.model.BreedsDomain
 import com.anuvk.furryfriendapp.domain.repository.DogBreedRepository
+import com.anuvk.furryfriendapp.domain.usecase.DogBreedsImageResult
 import com.anuvk.furryfriendapp.domain.usecase.DogBreedsResult
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -24,6 +26,21 @@ class DogBreedRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun getRandomNumberOfImagesByBreed(
+        breedName: String,
+        numberOfImages: Int
+    ) = flow<DogBreedsImageResult> {
+        val response = api.getBreedImages(breedName = breedName, imageCount = numberOfImages)
+        response.status?.let { responseStatus ->
+            if (responseStatus == "success" && !response.message.isNullOrEmpty()) {
+            emit(Result.Success(response.toDomain()))
+        } else {
+            emit(Result.Error(DataError.Network.ServerError("Server error")))
+        }
+        }
+    }
+
 }
 
 
