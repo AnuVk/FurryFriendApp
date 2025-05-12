@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.anuvk.furryfriendapp.domain.model.BreedsDomain
 import com.anuvk.furryfriendapp.presentation.state.DogBreedState
+import com.anuvk.furryfriendapp.utils.convertFirstCharToCapital
 
 @Composable
 fun DogBreedsScreenContent(
@@ -77,7 +78,7 @@ private fun DogCategoryItem(
     onClick: () -> Unit = {}
 ) {
     Text(
-        text = text,
+        text = text.convertFirstCharToCapital(),
         fontSize = 14.sp,
         modifier = modifier
             .fillMaxWidth()

@@ -44,6 +44,7 @@ okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-i
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version = "2.4.0" }
+accompanist-systemui= { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version = "0.31.3-beta" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
