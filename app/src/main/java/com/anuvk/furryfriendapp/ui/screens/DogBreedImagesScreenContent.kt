@@ -21,9 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.anuvk.furryfriendapp.domain.model.BreedsDomain
 import com.anuvk.furryfriendapp.presentation.state.DogBreedState
+import com.anuvk.furryfriendapp.ui.screens.DogBreedsImageLazyColumn
 
 @Composable
-fun DogBreedsScreenContent(
+fun DogBreedImagesScreenContent(
     state: DogBreedState,
     onBreedClick: (String) -> Unit = {}
 ) {
@@ -40,7 +41,7 @@ fun DogBreedsScreenContent(
             state.error != null -> {
                 Text("Sorry Your furry friend is napping") // Show error message
             }
-            state.breedsDomainList.isNotEmpty() -> {
+            state.randomDogBreedImages.isNotEmpty() -> {
                         DogBreedsImageLazyColumn(
                             listOfCategorizedBreeds = state.breedsDomainList,
                             onItemClick = onBreedClick
@@ -125,7 +126,7 @@ private fun DogCategoryItem(
 
 @Composable
 private fun DogBreedsImageLazyColumn(
-    listOfCategorizedBreeds: List<BreedsDomain>,
+    listOfCategorizedBreeds: List<String>,
     modifier: Modifier = Modifier,
     onItemClick: (String) -> Unit = {}
 ) {
@@ -143,33 +144,33 @@ private fun DogBreedsImageLazyColumn(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DogBreedsScreenContentPreview_Loading() {
-    DogBreedsScreenContent(
-        state = DogBreedState(isLoading = true),
-        onBreedClick = {})
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DogBreedsScreenContentPreview_Success() {
-    val sampleBreeds = listOf(
-        BreedsDomain("A", listOfBreeds = listOf("aaa", "ajhdjkdh")),
-        BreedsDomain("B", listOfBreeds = listOf("bbb", "ajhdjkdh")))
-
-    DogBreedsScreenContent(
-        state = DogBreedState(isLoading = false,
-        breedsDomainList = sampleBreeds),
-        onBreedClick = {})
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DogBreedsScreenContentPreview_Error() {
-    DogBreedsScreenContent(
-        state = DogBreedState(isLoading = false,
-            error = "Server Error"),
-        onBreedClick = {}
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DogBreedsScreenContentPreview_Loading() {
+//    DogBreedsScreenContent(
+//        state = DogBreedState(isLoading = true),
+//        onBreedClick = {})
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun DogBreedsScreenContentPreview_Success() {
+//    val sampleBreeds = listOf(
+//        BreedsDomain("A", listOfBreeds = listOf("aaa", "ajhdjkdh")),
+//        BreedsDomain("B", listOfBreeds = listOf("bbb", "ajhdjkdh")))
+//
+//    DogBreedsScreenContent(
+//        state = DogBreedState(isLoading = false,
+//        breedsDomainList = sampleBreeds),
+//        onBreedClick = {})
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun DogBreedsScreenContentPreview_Error() {
+//    DogBreedsScreenContent(
+//        state = DogBreedState(isLoading = false,
+//            error = "Server Error"),
+//        onBreedClick = {}
+//    )
+//}
