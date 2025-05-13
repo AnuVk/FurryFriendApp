@@ -48,14 +48,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                dogBreedViewModel.loadAllDogBreeds()
-                dogBreedViewModel.state.collectLatest {
-                    Log.d(">>>", "State: $it")
-                }
-            }
-        }
         enableEdgeToEdge()
         setContent {
             FurryFriendAppTheme {
