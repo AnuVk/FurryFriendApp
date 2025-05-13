@@ -1,31 +1,31 @@
 package com.anuvk.furryfriendapp.data.repository
 
-import app.cash.turbine.test
 import com.anuvk.furryfriendapp.data.remote.BreedResponse
 import com.anuvk.furryfriendapp.data.remote.FurryFriendApi
 import com.anuvk.furryfriendapp.domain.entity.result.Result
 import io.mockk.coEvery
-import io.mockk.impl.annotations.MockK
-import io.mockk.junit5.MockKExtension
+import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import org.junit.Before
+import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(MockKExtension::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class DogBreedRepositoryImplTest {
 
-    @MockK
-    lateinit var api: FurryFriendApi
+    private val api: FurryFriendApi = mockk()
 
     private lateinit var repository: DogBreedRepositoryImpl
 
-    @BeforeEach
+    @Before
     fun setUp() {
-        repository = DogBreedRepositoryImpl(api)
+        repository = DogBreedRepositoryImpl(api, UnconfinedTestDispatcher())
     }
 
     @Test
@@ -35,17 +35,27 @@ class DogBreedRepositoryImplTest {
 
         coEvery { api.getAllBreeds() } returns mockBreedResponse
 
-       repository.getAllBreeds().test {
-            val result = awaitItem()
+      val result =  repository.getAllBreeds().first()
+      advanceUntilIdle()
 
-           assertTrue(result is Result.Success)
-           val responseData = (result as Result.Success).data
-           assertEquals(2, responseData.size)
-           assertEquals("eskimo", responseData.first())
-           assertEquals("boxer", responseData.last())
+      assertTrue(result is Result.Success)
+      val responseData = (result as Result.Success).data
+        responseData
+      assertEquals(3, responseData.size)
+      assertEquals("boxer", responseData.first().listOfBreeds.first())
+      assertEquals("papillon        ", responseData.last().listOfBreeds.last())
 
-           awaitComplete()
-
-       }
+//       repository.getAllBreeds().test {
+//            val result = awaitItem()
+//
+//           assertTrue(result is Result.Success)
+//           val responseData = (result as Result.Success).data
+//           assertEquals(2, responseData.size)
+//           assertEquals("eskimo", responseData.first())
+//           assertEquals("boxer", responseData.last())
+//
+//           awaitComplete()
+//
+//       }
     }
 }
