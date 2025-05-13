@@ -32,15 +32,7 @@ class DogBreedRepositoryImpl @Inject constructor(
             }
         }
 
-//        val response = api.getAllBreeds()
-//        response.status?.let { responseStatus ->
-//            if (responseStatus == "success" && !response.breeds.isNullOrEmpty()) {
-//                emit(Result.Success(response.toDomain()))
-//            } else {
-//                emit(Result.Error(DataError.Network.ServerError("Server error")))
-//            }
-//        }
-    }
+    }.flowOn(dispatcher)
 
     override suspend fun getRandomNumberOfImagesByBreed(
         breedName: String,
@@ -49,6 +41,7 @@ class DogBreedRepositoryImpl @Inject constructor(
         runCatching {
             api.getBreedImages(breedName = breedName, imageCount = numberOfImages)
         }.onFailure { exception ->
+            println(">>> exception : $exception")
             emit(Result.Error(DataError.Network.ServerError("Server error")))
         }.onSuccess { response ->
             response.status?.let { responseStatus ->
@@ -58,14 +51,6 @@ class DogBreedRepositoryImpl @Inject constructor(
                     emit(Result.Error(DataError.Network.ServerError("Server error")))
                 }
         }
-
-//        val response = api.getBreedImages(breedName = breedName, imageCount = numberOfImages)
-//        response.status?.let { responseStatus ->
-//            if (responseStatus == "success" && !response.message.isNullOrEmpty()) {
-//            emit(Result.Success(response.toDomain()))
-//        } else {
-//            emit(Result.Error(DataError.Network.ServerError("Server error")))
-//        }
         }
     }.flowOn(dispatcher)
 
