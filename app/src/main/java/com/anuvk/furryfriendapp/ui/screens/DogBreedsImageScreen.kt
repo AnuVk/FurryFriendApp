@@ -16,7 +16,6 @@ fun  DogBreedsImageScreen(
 
     LaunchedEffect(key1 = Unit) {
         viewModel.getRandomImageByBreed(breedName, 10)
-        println(">>> breedname $breedName")
     }
 
     DogBreedImagesScreenContent(

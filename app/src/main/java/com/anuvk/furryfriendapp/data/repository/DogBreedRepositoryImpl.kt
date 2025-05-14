@@ -17,10 +17,10 @@ class DogBreedRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcher
 ) : DogBreedRepository {
 
-    override suspend fun getAllBreeds() = flow<DogBreedsResult> {
+    override suspend fun getAllBreeds() = flow {
         runCatching {
             api.getAllBreeds()
-        }.onFailure { exception ->
+        }.onFailure {
             emit(Result.Error(DataError.Network.ServerError("Server error")))
         }.onSuccess { response ->
             response.status?.let { responseStatus ->
@@ -37,11 +37,10 @@ class DogBreedRepositoryImpl @Inject constructor(
     override suspend fun getRandomNumberOfImagesByBreed(
         breedName: String,
         numberOfImages: Int
-    ) = flow<DogBreedsImageResult> {
+    ) = flow {
         runCatching {
             api.getBreedImages(breedName = breedName, imageCount = numberOfImages)
-        }.onFailure { exception ->
-            println(">>> exception : $exception")
+        }.onFailure {
             emit(Result.Error(DataError.Network.ServerError("Server error")))
         }.onSuccess { response ->
             response.status?.let { responseStatus ->
