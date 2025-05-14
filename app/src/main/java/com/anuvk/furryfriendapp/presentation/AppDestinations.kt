@@ -13,16 +13,9 @@ object AppDestinations {
     const val BREED_LIST_ROUTE = "breedList"
     const val BREED_IMAGES_LIST_ROUTE = "breedImagesDetails/{breedName}" // Route with an argument
 
-    // Helper function to create the detail route with an argument
     fun createBreedDetailRoute(breedName: String): String {
         return "breedImagesDetails/$breedName"
     }
-
-}
-
-sealed class AppScreens(val route: String) {
-    object AllDogBreedsScreen : AppScreens("breedsList")
-    object DogBreedsImageListScreen : AppScreens("breedsImagesList") // Route with an argument
 }
 
 @Composable
@@ -39,8 +32,6 @@ fun AppNavigation(
         ) { backStackEntry ->
             val breedName = backStackEntry.arguments?.getString("breedName")
             DogBreedsImageScreen(breedName ?: "")
-            // Navigate to your detail screen, passing the breedName
-            // BreedDetailScreen(breedName = breedName) // Assuming you have a BreedDetailScreen
         }
     }
 }

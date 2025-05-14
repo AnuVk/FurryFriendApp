@@ -12,10 +12,8 @@ interface FurryFriendApi {
     @GET("/api/breeds/list")
     suspend fun getAllBreeds(): BreedResponse
 
-
     @GET("/api/breed/{breedName}/images/random/{imageCount}")
     suspend fun getBreedImages(
         @Path("breedName") breedName: String,
         @Path("imageCount") imageCount: Int): BreedImageResponse
-
 }

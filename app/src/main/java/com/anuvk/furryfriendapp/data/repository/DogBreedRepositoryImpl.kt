@@ -5,8 +5,6 @@ import com.anuvk.furryfriendapp.data.remote.toDomain
 import com.anuvk.furryfriendapp.domain.entity.result.Result
 import com.anuvk.furryfriendapp.domain.error.DataError
 import com.anuvk.furryfriendapp.domain.repository.DogBreedRepository
-import com.anuvk.furryfriendapp.domain.usecase.DogBreedsImageResult
-import com.anuvk.furryfriendapp.domain.usecase.DogBreedsResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn

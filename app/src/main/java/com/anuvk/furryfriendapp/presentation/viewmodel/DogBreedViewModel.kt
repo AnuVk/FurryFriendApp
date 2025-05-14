@@ -24,7 +24,6 @@ class DogBreedViewModel @Inject constructor(
     private val _state = MutableStateFlow(DogBreedState())
     val state: StateFlow<DogBreedState> = _state
 
-
     fun loadAllDogBreeds() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }

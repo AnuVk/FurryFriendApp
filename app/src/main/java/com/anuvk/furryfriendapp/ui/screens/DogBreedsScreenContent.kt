@@ -39,7 +39,12 @@ fun DogBreedsScreenContent(
                 }
             }
             state.error != null -> {
-                Text("Sorry Your furry friends are napping")
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("Sorry Your furry friends are napping")
+                }
             }
             state.breedsDomainList.isNotEmpty() -> {
                         DogBreedCategorizedLazyColumn(
@@ -47,7 +52,6 @@ fun DogBreedsScreenContent(
                             onItemClick = onBreedClick
                         )
                 }
-            // Optional: Handle empty state
             else -> {
                 Text("No list of breeds available")
             }

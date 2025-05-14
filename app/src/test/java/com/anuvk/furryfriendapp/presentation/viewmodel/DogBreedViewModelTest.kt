@@ -69,12 +69,10 @@ class DogBreedViewModelTest {
 
    coEvery { getAllDogBreedsUseCase.invoke() } returns flowOf(Result.Success(mockListOfBreeds))
 
-   //initial load
    viewModel.state.test {
 
     awaitItem()
 
-    //When
     viewModel.loadAllDogBreeds()
 
     assertEquals(
@@ -110,10 +108,8 @@ class DogBreedViewModelTest {
   viewModel.state.test {
    awaitItem()
 
-   // Act
    viewModel.loadAllDogBreeds()
 
-   // Assert loading state
    assertEquals(
     DogBreedState(
      isLoading = true,
@@ -123,7 +119,6 @@ class DogBreedViewModelTest {
     ), awaitItem()
    )
 
-   // Assert error state
    assertEquals(
     DogBreedState(
      isLoading = false,
@@ -193,7 +188,6 @@ class DogBreedViewModelTest {
  @Test
  @DisplayName("when getRandomImageByBreed fails then return error is thrown")
  fun `given getRandomImageByBreed fails then error state is triggered`() = runTest {
-  // Arrange
   val breedName = "poodle"
   val numberOfImages = 5
   val expectedError = "Something went wrong"
@@ -208,10 +202,9 @@ class DogBreedViewModelTest {
   viewModel.state.test {
 
    awaitItem()
-   // Act
+
    viewModel.getRandomImageByBreed(breedName, numberOfImages)
 
-   // Assert loading state
    assertEquals(
     DogBreedState(
      isLoading = true,
@@ -221,7 +214,6 @@ class DogBreedViewModelTest {
     ), awaitItem()
    )
 
-   // Assert success state with images
    assertEquals(
     DogBreedState(
      isLoading = false,

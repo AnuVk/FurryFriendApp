@@ -43,7 +43,12 @@ fun DogBreedImagesScreenContent(
                 }
             }
             state.error != null -> {
-                Text("Sorry Your furry friend are napping")
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("Sorry!!! Your furry friends are napping")
+                }
             }
             state.randomDogBreedImages.isNotEmpty() -> {
                         DogBreedsImageLazyColumn(

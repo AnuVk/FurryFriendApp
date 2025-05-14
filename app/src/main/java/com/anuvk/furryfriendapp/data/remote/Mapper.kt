@@ -4,8 +4,8 @@ import com.anuvk.furryfriendapp.domain.model.BreedsDomain
 import com.anuvk.furryfriendapp.domain.model.DogBreedImagesDomain
 
 fun BreedResponse.toDomain(): List<BreedsDomain> {
-    return breeds!!.let { allbreeds ->
-         allbreeds.groupBy { it.first().uppercase() }.toSortedMap().map {
+    return breeds!!.let { allBreeds ->
+         allBreeds.groupBy { it.first().uppercase() }.toSortedMap().map {
              BreedsDomain(
                  groupName = it.key.toString(),
                  listOfBreeds = it.value.toList())
