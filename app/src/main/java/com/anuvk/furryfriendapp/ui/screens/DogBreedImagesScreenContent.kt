@@ -46,14 +46,13 @@ fun DogBreedImagesScreenContent(
                 }
             }
             state.error != null -> {
-                Text("Sorry Your furry friend is napping") // Show error message
+                Text("Sorry Your furry friend are napping")
             }
             state.randomDogBreedImages.isNotEmpty() -> {
                         DogBreedsImageLazyColumn(
                             listOfImages = state.randomDogBreedImages
                         )
                 }
-            // Optional: Handle empty state
             else -> {
                 Text("No breeds available.")
             }

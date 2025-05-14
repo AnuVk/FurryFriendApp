@@ -48,7 +48,7 @@ class DogBreedRepositoryImpl @Inject constructor(
                 if (responseStatus == "success" && !response.message.isNullOrEmpty()) {
                     emit(Result.Success(response.toDomain()))
                 } else {
-                    emit(Result.Error(DataError.Network.ServerError("Server error")))
+                    emit(Result.Error(DataError.Network.EmptyResponse("Server error")))
                 }
         }
         }

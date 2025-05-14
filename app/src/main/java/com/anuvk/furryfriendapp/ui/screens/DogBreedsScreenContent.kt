@@ -39,7 +39,7 @@ fun DogBreedsScreenContent(
                 }
             }
             state.error != null -> {
-                Text("Sorry Your furry friend is napping") // Show error message
+                Text("Sorry Your furry friends are napping")
             }
             state.breedsDomainList.isNotEmpty() -> {
                         DogBreedCategorizedLazyColumn(
@@ -49,7 +49,7 @@ fun DogBreedsScreenContent(
                 }
             // Optional: Handle empty state
             else -> {
-                Text("No breeds available.")
+                Text("No list of breeds available")
             }
         }
     }

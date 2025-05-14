@@ -11,7 +11,6 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -19,6 +18,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import com.anuvk.furryfriendapp.domain.entity.result.Result
+import com.anuvk.furryfriendapp.domain.error.DataError
 
 
 @ObsoleteCoroutinesApi
@@ -38,68 +38,77 @@ class DogBreedViewModelTest {
   viewModel = DogBreedViewModel(getAllDogBreedsUseCase, getDogBreedRandomImagesUseCase)
  }
 
- @Test
- @DisplayName("When loadDogBreeds is success then return list of dog breeds")
- fun `given loadDogBreeds is success then return list of dog breeds`() = runTest {
-  val mockListOfBreeds = listOf(
-   BreedsDomain(groupName = "A", listOfBreeds = listOf("Andn", "Avjdh")),
-   BreedsDomain(groupName = "B", listOfBreeds = listOf("Bssds", "Bzaa")),
-   BreedsDomain(groupName = "C", listOfBreeds = listOf("Chisk", "Cijjs"))
-  )
 
-  coEvery { getAllDogBreedsUseCase.invoke() } returns flowOf(Result.Success(mockListOfBreeds))
+ @Test
+ @DisplayName("onLoading initial state should be triggered")
+ fun `given view is initialised then initial state should be set`() = runTest {
 
   viewModel.state.test {
    assertEquals(
     DogBreedState(
      isLoading = false,
      breedsDomainList = emptyList(),
-     error = null,
-     randomDogBreedImages = emptyList()
-    ), awaitItem()
-   )
-
-   viewModel.loadAllDogBreeds()
-
-   assertEquals(
-    DogBreedState(
-     isLoading = true,
-     breedsDomainList = emptyList(),
-     error = null,
-     randomDogBreedImages = emptyList()
-    ), awaitItem())
-   assertEquals(
-    DogBreedState(
-     isLoading = false,
-     breedsDomainList = mockListOfBreeds,
      error = null,
      randomDogBreedImages = emptyList()
     ), awaitItem()
    )
 
   }
-
  }
 
- @Test
- @DisplayName("loadAllDogBreeds - error")
- fun `loadAllDogBreeds should update state with error message on error`() = runTest {
-  // Arrange
-  val errorMessage = "Please try again later"
-  // Mock the Use Case to return an error Flow
-  coEvery { getAllDogBreedsUseCase() } returns flowOf(Result.Error(androidx.credentials.exceptions.domerrors.DataError.Network.ServerError))
 
-  // Use Turbine to test the state flow
-  viewModel.state.test {
-   // Initial state assertion
-   assertEquals(
-    DogBreedState(
-     isLoading = false,
-     breedsDomainList = emptyList(),
-     error = null,
-     randomDogBreedImages = emptyList()
-    ), awaitItem()
+ @Test
+ @DisplayName("When loadDogBreeds is success then return list of dog breeds")
+ fun `given loadDogBreeds is success then success state is triggered with correct data`() =
+  runTest {
+   val mockListOfBreeds = listOf(
+    BreedsDomain(groupName = "A", listOfBreeds = listOf("Andn", "Avjdh")),
+    BreedsDomain(groupName = "B", listOfBreeds = listOf("Bssds", "Bzaa")),
+    BreedsDomain(groupName = "C", listOfBreeds = listOf("Chisk", "Cijjs"))
    )
+
+   coEvery { getAllDogBreedsUseCase.invoke() } returns flowOf(Result.Success(mockListOfBreeds))
+
+   //initial load
+   viewModel.state.test {
+
+    awaitItem()
+
+    //When
+    viewModel.loadAllDogBreeds()
+
+    assertEquals(
+     DogBreedState(
+      isLoading = true,
+      breedsDomainList = emptyList(),
+      error = null,
+      randomDogBreedImages = emptyList()
+     ), awaitItem()
+    )
+
+    assertEquals(
+     DogBreedState(
+      isLoading = false,
+      breedsDomainList = mockListOfBreeds,
+      error = null,
+      randomDogBreedImages = emptyList()
+     ), awaitItem()
+    )
+    expectNoEvents()
+
+   }
+
+  }
+
+ @Test
+ @DisplayName("when loadAll DogBreeds fails then return error")
+ fun `given loadAllDogBreeds fails then error state is triggered`() = runTest {
+  val expectedErrorMessage = "Please try again later"
+
+  coEvery { getAllDogBreedsUseCase() } returns flowOf(Result.Error(DataError.Network.ServerError("Some server error")))
+
+  viewModel.state.test {
+   awaitItem()
 
    // Act
    viewModel.loadAllDogBreeds()
@@ -119,7 +128,7 @@ class DogBreedViewModelTest {
     DogBreedState(
      isLoading = false,
      breedsDomainList = emptyList(),
-     error = errorMessage,
+     error = expectedErrorMessage,
      randomDogBreedImages = emptyList()
     ), awaitItem()
    )
@@ -128,36 +137,77 @@ class DogBreedViewModelTest {
   }
  }
 
+
  @Test
- @DisplayName("getRandomImageByBreed - success with data")
- fun `getRandomImageByBreed should update state with images on success`() = runTest {
+ @DisplayName("when getRandomImageByBreed is success then return list of images")
+ fun `given getRandomImageByBreed is success then success state is triggered with correct data`() =
+  runTest {
+
+   val breedName = "poodle"
+   val numberOfImages = 5
+   val mockImages = listOf("img1.jpg", "img2.jpg")
+
+   val mockDogBreedImagesDomain = DogBreedImagesDomain(listOfDogBreedImages = mockImages)
+
+   coEvery {
+    getDogBreedRandomImagesUseCase(
+     breedName,
+     numberOfImages
+    )
+   } returns flowOf(Result.Success(mockDogBreedImagesDomain))
+
+   viewModel.state.test {
+    assertEquals(
+     DogBreedState(
+      isLoading = false,
+      breedsDomainList = emptyList(),
+      error = null,
+      randomDogBreedImages = emptyList()
+     ), awaitItem()
+    )
+
+    viewModel.getRandomImageByBreed(breedName, numberOfImages)
+
+    assertEquals(
+     DogBreedState(
+      isLoading = true,
+      breedsDomainList = emptyList(),
+      error = null,
+      randomDogBreedImages = emptyList()
+     ), awaitItem()
+    )
+
+    assertEquals(
+     DogBreedState(
+      isLoading = false,
+      breedsDomainList = emptyList(),
+      error = null,
+      randomDogBreedImages = mockImages
+     ), awaitItem()
+    )
+
+    expectNoEvents()
+   }
+  }
+
+ @Test
+ @DisplayName("when getRandomImageByBreed fails then return error is thrown")
+ fun `given getRandomImageByBreed fails then error state is triggered`() = runTest {
   // Arrange
   val breedName = "poodle"
   val numberOfImages = 5
-  val mockImages = listOf("img1.jpg","img2.jpg")
+  val expectedError = "Something went wrong"
 
-  val mockDogBreedImagesDomain = DogBreedImagesDomain(listOfDogBreedImages = mockImages)
-
-  // Mock the Use Case to return a successful Flow
   coEvery {
    getDogBreedRandomImagesUseCase(
     breedName,
     numberOfImages
    )
-  } returns flowOf(Result.Success(mockDogBreedImagesDomain))
+  } returns flowOf(Result.Error(DataError.Network.EmptyResponse("Something else went wrong")))
 
-  // Use Turbine to test the state flow
   viewModel.state.test {
-   // Initial state assertion
-   assertEquals(
-    DogBreedState(
-     isLoading = false,
-     breedsDomainList = emptyList(),
-     error = null,
-     randomDogBreedImages = emptyList()
-    ), awaitItem()
-   )
 
+   awaitItem()
    // Act
    viewModel.getRandomImageByBreed(breedName, numberOfImages)
 
@@ -176,8 +226,8 @@ class DogBreedViewModelTest {
     DogBreedState(
      isLoading = false,
      breedsDomainList = emptyList(),
-     error = null,
-     randomDogBreedImages = mockImages
+     error = expectedError,
+     randomDogBreedImages = emptyList()
     ), awaitItem()
    )
 
