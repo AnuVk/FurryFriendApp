@@ -9,8 +9,8 @@ import com.anuvk.furryfriendapp.domain.usecase.DogBreedsImageResult
 import com.anuvk.furryfriendapp.domain.usecase.DogBreedsResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
 class DogBreedRepositoryImpl @Inject constructor(
     private val api: FurryFriendApi,

@@ -5,26 +5,24 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
-import com.anuvk.furryfriendapp.presentation.AppDestinations
 import com.anuvk.furryfriendapp.presentation.viewmodel.DogBreedViewModel
 
 @Composable
-fun  AllDogBreedsScreen(
-    navController: NavController,
+fun  SubDogBreedsScreen(
+    breedName: String,
     viewModel: DogBreedViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.loadAllDogBreeds()
+        viewModel.getRandomImageByBreed(breedName, 10)
+        println(">>> breedname $breedName")
     }
 
-    DogBreedsScreenContent(
-        state = state,
-        onBreedClick = { breedName ->
-            navController.navigate(AppDestinations.createBreedDetailRoute(breedName))
-        }
+    DogBreedImagesScreenContent(
+        state = state
     )
 
 }
+
+

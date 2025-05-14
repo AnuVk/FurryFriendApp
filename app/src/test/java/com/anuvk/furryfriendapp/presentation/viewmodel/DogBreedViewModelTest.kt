@@ -2,6 +2,8 @@ package com.anuvk.furryfriendapp.presentation.viewmodel
 
 import app.cash.turbine.test
 import com.anuvk.furryfriendapp.TestCoroutineRule
+import com.anuvk.furryfriendapp.domain.entity.result.Result
+import com.anuvk.furryfriendapp.domain.error.DataError
 import com.anuvk.furryfriendapp.domain.model.BreedsDomain
 import com.anuvk.furryfriendapp.domain.model.DogBreedImagesDomain
 import com.anuvk.furryfriendapp.domain.usecase.DogBreedRandomImagesUseCase
@@ -17,8 +19,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
-import com.anuvk.furryfriendapp.domain.entity.result.Result
-import com.anuvk.furryfriendapp.domain.error.DataError
 
 
 @ObsoleteCoroutinesApi
