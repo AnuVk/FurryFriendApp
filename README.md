@@ -50,21 +50,6 @@ https://github.com/user-attachments/assets/53e614c7-0445-4142-8e30-be9c4be34bf1
 https://github.com/user-attachments/assets/3e44a5e6-fbdd-427d-9c43-63bfea3979d0
 
 
-**Scenario 3**: Show error screen when the list of breeds endpoint fails
-
-
-https://github.com/user-attachments/assets/2ee1daee-e69e-499e-89da-4e2ad349f302
-
-
-
-**Scenario 4** Show error screen when the list of breed images endpoint fails
-
-
-https://github.com/user-attachments/assets/748f7b49-a2e0-4ecb-9dd5-e36606fb337b
-
-
-
-Scenario 4 Show error screen when the list of breed images endpoint fails
 
 
 
