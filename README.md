@@ -37,27 +37,34 @@ Upon successfully retrieving the dog breed list, the ViewModel checks the status
 The project incorporates tests at the repository and ViewModel levels using Turbine for flow testing and MockK for mocking dependencies.
 
 ### Video:
-Scenario 1: Show list of breeds and clicking on any breed, show random 10 images of the breed
 
-List of breeds
-https://github.com/user-attachments/assets/1e82a989-4a3f-4de0-a924-a6c7533a5aab
+**Scenario 1** : List of breeds
 
-List of random images of a particular breed
-https://github.com/user-attachments/assets/b9b34233-5684-45d7-80d3-757c216bf526
+
+https://github.com/user-attachments/assets/53e614c7-0445-4142-8e30-be9c4be34bf1
 
 
 
-Scenario 2: Show error screen when the list of breeds endpoint fails
+**Scenario 2**: List of random images of a particular breed
+
+https://github.com/user-attachments/assets/3e44a5e6-fbdd-427d-9c43-63bfea3979d0
 
 
-https://github.com/user-attachments/assets/5450e47a-e8ff-4e32-ac9f-83a7be8c5517
+**Scenario 3**: Show error screen when the list of breeds endpoint fails
+
+
+https://github.com/user-attachments/assets/2ee1daee-e69e-499e-89da-4e2ad349f302
 
 
 
-Scenario 3 Show error screen when the list of breed images endpoint fails
+**Scenario 4** Show error screen when the list of breed images endpoint fails
 
 
-https://github.com/user-attachments/assets/503bc802-460b-4044-8ad5-20c7a42840bc
+https://github.com/user-attachments/assets/748f7b49-a2e0-4ecb-9dd5-e36606fb337b
+
+
+
+Scenario 4 Show error screen when the list of breed images endpoint fails
 
 
 
