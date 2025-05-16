@@ -40,14 +40,30 @@ The project incorporates tests at the repository and ViewModel levels using Turb
 
 **Scenario 1** : List of breeds
 
-
-https://github.com/user-attachments/assets/53e614c7-0445-4142-8e30-be9c4be34bf1
+https://github.com/user-attachments/assets/987039d6-abab-4d7a-8d3e-228c83fcb748
 
 
 
 **Scenario 2**: List of random images of a particular breed
 
-https://github.com/user-attachments/assets/3e44a5e6-fbdd-427d-9c43-63bfea3979d0
+
+https://github.com/user-attachments/assets/85c1d0d8-08ce-4567-883a-295b22f899cf
+
+
+
+**Scenario 3**: List of bread - error scenario 
+
+
+https://github.com/user-attachments/assets/349c4c87-56e8-4bca-ad96-f76be5dab7ec
+
+
+
+**Scenario 4**: List of random images  - error scenario
+
+
+
+
+https://github.com/user-attachments/assets/4555e503-62d7-4f77-bc80-670526189543
 
 
 
